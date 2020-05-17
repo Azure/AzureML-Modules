@@ -1,0 +1,22 @@
+amlModuleIdentifier:
+  namespace: microsoft.com/office
+  moduleName: Sample Module
+  moduleVersion: 0.4.3
+description: Basic module for demo.
+metadata:
+  annotations:
+    tags: [nlp, bert]
+    contact: AzureML Studio Team <stcamlstudiosg@microsoft.com>
+    helpDocument: http://readthedocs.com/proj
+inputs:
+  - name: Input Port
+    type: AnyDirectory
+  - name: Parameter 1
+    type: String
+    default: hello
+  - name: Parameter 2
+    type: Integer
+    default: 1
+outputs:
+  - name: Output Port
+    type: AnyDirectory

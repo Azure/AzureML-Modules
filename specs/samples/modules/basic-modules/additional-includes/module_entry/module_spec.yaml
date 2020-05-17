@@ -1,0 +1,19 @@
+amlModuleIdentifier:
+  moduleName: Additional Files
+  moduleVersion: 0.0.1
+  namespace: microsoft.com/azureml/samples
+metadata:
+  annotations:
+    tags:
+      - Samples
+description: A sample to demostrate modules with additional files
+inputs: []
+outputs: []
+implementation:
+  container:
+    image: zzn2/azureml_sdk
+    additionalIncludes:
+      - ../src/python/library1
+      - ../src/python/library2
+      - ../assets/LICENSE
+    command: [python, run.py]
