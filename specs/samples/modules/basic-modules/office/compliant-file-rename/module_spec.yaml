@@ -1,0 +1,40 @@
+amlModuleIdentifier:
+  moduleName: Compliant file rename
+  moduleVersion: 0.0.1
+  namespace: microsoft.com/office/smart-compose
+metadata:
+  tags:
+  - Office
+inputs:
+- name: InputBlob
+  type:
+  - AnyDirectory
+  - AnyFile
+- name: FileName
+  type: String
+- name: dummy
+  type: String
+  default: '1'
+outputs:
+- name: OutputBlob
+  type: AnyDirectory
+implementation:
+  container:
+    amlEnvironment:
+      python:
+        condaDependencies:
+          channels:
+          - defaults
+          dependencies:
+          - python=3.6.8
+          - pip:
+            - azureml-defaults
+          name: project_environment
+    command:
+    - python
+    - renamer.py
+    args:
+    - inputPath: InputBlob
+    - outputPath: OutputBlob
+    - inputValue: FileName
+    - inputValue: dummy

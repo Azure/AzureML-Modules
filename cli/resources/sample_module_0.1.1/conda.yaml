@@ -1,0 +1,8 @@
+name: project_environment
+channels:
+  - defaults
+dependencies:
+  - python=3.6.8
+  - pip:
+    - azureml-defaults
+    - azureml-designer-core==0.0.31
