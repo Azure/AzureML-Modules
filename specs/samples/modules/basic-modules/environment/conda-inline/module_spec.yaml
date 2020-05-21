@@ -1,3 +1,6 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
 amlModuleIdentifier:
   moduleName: Hello World
   moduleVersion: 0.0.1

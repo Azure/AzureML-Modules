@@ -1,3 +1,6 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
 import argparse
 from azureml.studio.core.logger import module_logger as logger
 from azureml.studio.core.io.data_frame_directory import load_data_frame_from_directory, save_data_frame_to_directory
