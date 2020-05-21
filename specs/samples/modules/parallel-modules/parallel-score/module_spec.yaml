@@ -1,3 +1,6 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
 amlModuleIdentifier:
   moduleName: Parallel Score Image Classification Model
   moduleVersion: 0.0.1

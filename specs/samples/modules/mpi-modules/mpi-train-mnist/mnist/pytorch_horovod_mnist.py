@@ -1,3 +1,6 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
 # Copyright (c) 2017, PyTorch contributors
 # Modifications copyright (C) Microsoft Corporation
 # Licensed under the BSD license

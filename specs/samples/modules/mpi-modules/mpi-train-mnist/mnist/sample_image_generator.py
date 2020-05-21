@@ -1,3 +1,6 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
 from torchvision.datasets import MNIST
 from pathlib import Path
 import argparse
