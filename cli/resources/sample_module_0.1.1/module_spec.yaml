@@ -1,3 +1,6 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
 amlModuleIdentifier:
   namespace: microsoft.com/office
   moduleName: Sample Module

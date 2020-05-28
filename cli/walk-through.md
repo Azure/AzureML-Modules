@@ -9,7 +9,7 @@
   az extension remove -n azure-cli-ml
 
   # Install local version of azure-cli-ml (which includes `az ml module` commands)
-  az extension add --source https://azuremlsdktestpypi.azureedge.net/CLI-SDK-Runners-Validation/13766063/azure_cli_ml-0.1.0.13766063-py3-none-any.whl --pip-extra-index-urls https://azuremlsdktestpypi.azureedge.net/CLI-SDK-Runners-Validation/13766063 --yes
+  az extension add --source https://azuremlsdktestpypi.azureedge.net/CLI-SDK-Runners-Validation/14574253/azure_cli_ml-0.1.0.14574253-py3-none-any.whl --pip-extra-index-urls https://azuremlsdktestpypi.azureedge.net/CLI-SDK-Runners-Validation/14574253 --yes
   ```
 
 * Confirm the version of installed azure-cli-ml
@@ -115,7 +115,7 @@ Entry file 'invoker.py' doesn't exist in source directory.
 
 $ az ml module validate-spec -f resources/invalid_missing_required_attributes/module_spec.yaml
 Error occurred when loading YAML file module_spec.yaml, details: File 'module_spec.yaml' has parse error(s):
-Location: #  Message: The properties ["implementation"] are required.
+at Line: 1, Col: 1, Idx: 0; Missing required properties: ["implementation"].
 ```
 
 ### List modules

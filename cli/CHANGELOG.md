@@ -1,3 +1,11 @@
+## 0.1.0.14574253
+
+* Add support for the new `.additional_includes` file. Refer to [this doc](../specs/additional-includes.md) for details.
+* Added `--amlignore-file` to specify a common `.amlignore` file when registering module. Also added `az configure --defaults module_amlignore_file=/path/to/amlignore` to set the default `.amlignore` file. Refer to [this doc](../specs/ignore-files.md) for details.
+* Improved performance for `az ml module validate-spec` command escepcially when the module contains a large amount of files.
+
+
+
 ## 0.1.0.13766063
 
 * Added a progress indicator for registering from local resources.
@@ -57,6 +65,7 @@
 * Updated default workspace and resource group setting. (to align with other `az ml` commands).
   * From `az configure --defaults aml_workspace=xxx group=xxx`
   * To `az ml folder attach -w xxx -g xxx`
+    
     > Note: The new way only only take affect for one folder. When changed to another folder, need to set default workspace again.
 
 

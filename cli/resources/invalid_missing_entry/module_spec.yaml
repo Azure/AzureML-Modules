@@ -1,3 +1,6 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
 amlModuleIdentifier:
   namespace: microsoft.com/office
   moduleName: Sample Module
@@ -25,7 +28,7 @@ implementation:
     image: mcr.microsoft.com/azureml/base:intelmpi2018.3-ubuntu16.04
     additionalIncludes:
       - ../sample_module_0.1.1
-      - ../../a-quick-go-through.md
+      - ../../walk-through.md
       - ../../CHANGELOG.md
     command: [python, invoker.py]
     args: [
