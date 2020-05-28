@@ -106,6 +106,7 @@ Invoke a module register using the follow command:
 az ml module register [--spec-file]
                       [--package-zip]
                       [--set-as-default-version]
+                      [--amlignore-file]
 ```
 > The parameters with `[]` (e.g. `[--spec-file]`) indicates that the parameter is optional.
 
@@ -120,6 +121,10 @@ The zip package contains the module spec and implemention code. Currently only a
 
 If specified, will set the newly registered module as default version.
 
+##### `--amlignore-file` `-i`
+
+If specified, respect the given amlignore file when package snapshot.
+
 #### Examples
 
 ```bash
@@ -129,6 +134,8 @@ az ml module register --spec-file /path/to/module/package/module_spec.yaml
 az ml module register --spec-file https://github.com/zzn2/sample_modules/tree/master/one_spec
 # Register from DevOps build drop
 az ml module register --spec-file relative/path/in/package/module_spec.yaml --package-zip=http://example.com/url/to/build/drop
+# Register from a local path, with an .amlignore file specified
+az ml module register --spec-file /path/to/module/package/module_spec.yaml --amlignore-file /path/to/common/.amlignore
 ```
 
 
