@@ -15,8 +15,4 @@ outputs: []
 implementation:
   container:
     image: zzn2/azureml_sdk
-    additionalIncludes:
-      - ../src/python/library1
-      - ../src/python/library2
-      - ../assets/LICENSE
     command: [python, run.py]

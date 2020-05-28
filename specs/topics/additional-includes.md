@@ -67,9 +67,9 @@ LICENSE
     * Not recommended: `..\src\python\library1`.
 
 
-It would be helpful to test run the module before the module get registered to a workspace. For local testing, it is convinent to setup some symbol links in the snapshot base folder for additional files. We have created [a sample python script](samples/modules/basic-modules/additional-includes/module_entry/setup_env.py) to do the job automatically.
+It would be helpful to test run the module before the module get registered to a workspace. For local testing, it is convinent to setup some symbol links in the snapshot base folder for additional files. We have created [a sample python script](../samples/modules/basic-modules/additional-includes/module_entry/setup_env.py) to do the job automatically.
 
 
 ### Sample module
 
-Refer to [here](samples/modules/basic-modules/additional-includes/) for a sample module.
+Refer to [here](../samples/modules/basic-modules/additional-includes/) for a sample module.
