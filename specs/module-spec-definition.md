@@ -35,7 +35,7 @@ ModuleIdentifier is a global unique identifier to a specific version of a module
 
 #### Namespace
 
-Namespace is used to avoid naming conflicts of modules created by different teams or organizations. It is recommended to follow below specification. If namespace is not specified in spec, aml workspace name will be used as default value.
+Namespace is used to avoid naming conflicts of modules created by different teams or organizations. It is recommended to follow below specification. If namespace is not specified in spec, AzureML workspace name will be used as default value.
 
 ```
 $ORGANIZATION_NAME/$MODULE_PATH
@@ -70,7 +70,7 @@ Defines additional information for the module. Currently supported properties ar
 
 | Name        | Type         | Required | Description                                                  |
 | ----------- | ------------ | -------- | ------------------------------------------------------------ |
-| tags  | List<String> | No       | A list of tags to describe the category of the module. Each tag should be one word or a short phrase to describe the module, e.g. `Office`, `NLP`, `ImageClassification`.|
+| tags  | List<String> | No       | A list of tags to describe the category of the module. Each tag should be one word or a short phrase to describe the module, e.g. `Office`, `NLP`, `ImageClassification`. |
 | contact     | String       | No       | The contact info of the module's author. Typically contains user or organization's name and email. e.g. `AzureML Studio Team <stcamlstudiosg@microsoft.com>`. |
 | helpDocument | String       | No       | The url of the module's documentation. The url is shown as a link on AzureML Designer's page. |
 
@@ -99,9 +99,9 @@ Defines a parameter of the module.
 | type        | String  | Yes      | Defines the type of this data. Refer to [Data Types for Parameters](#Data Types for Parameters) for details. |
 | optional    | Boolean | No       | Indicates whether this input is optional. Default value is `False`. |
 | default     | Dynamic | No       | The default value for this parameter. The type of this value is dynamic. e.g. If `type` field in Input is `Integer`, this value should be `Inteter`. If `type` is `String`, this value should also be `String`. This field is optional, defaults to `null` or `None` if not specified. |
-| description | String  | No       | Detailed description to the parameter. |
+| description | String  | No       | Detailed description to the parameter.                       |
 | min         | Numeric | No       | The minimum value that can be accepted. This field only takes effect when `type` is `Integer` or `Float`. Specify `Integer` or `Float` values accordingly. |
-| max         | Numeric | No       | The maximum value that can be accepted. Similar to `min`. |
+| max         | Numeric | No       | The maximum value that can be accepted. Similar to `min`.    |
 | options     | List    | No       | The acceptable values for the parameter. This field only takes effect when `type` is `Enum`. |
 
 
@@ -134,13 +134,12 @@ This block defines how and where to run the module code.
 
 ### Container
 
-| Name               | Type                                                         | Required | Description                                                  |
-| ------------------ | ------------------------------------------------------------ | -------- | ------------------------------------------------------------ |
-| amlEnvironment     | [AmlEnvironment](#AmlEnvironment) or [AmlEnvironmentReference](#AmlEnvironmentReference) | No[^1]   | Specify the runtime environment for the module to run. Refer to [here](samples/modules/basic-modules/environment) for details. |
-| image              | String                                                       | No[^1]   | Specify the docker image path. Refer to [here](samples/modules/basic-modules/environment) for details. |
-| additionalIncludes | String or List<String>                                       | No       | Specify the additional files or folders to the module snapshot. Refer to [here](samples/modules/basic-modules/additional-includes) for details. |
-| command            | List<String>                                                 | Yes      | Specify the command to start to run the module code.         |
-| args               | List                                                         | No       | Specify the arguments used along with `command`. This list may consist place holders of Inputs and Outputs. See [CLI Argument Place Holders](#CLI Argument Place Holders) for details. |
+| Name           | Type                                                         | Required | Description                                                  |
+| -------------- | ------------------------------------------------------------ | -------- | ------------------------------------------------------------ |
+| amlEnvironment | [AmlEnvironment](#AmlEnvironment) or [AmlEnvironmentReference](#AmlEnvironmentReference) | No[^1]   | Specify the runtime environment for the module to run. Refer to [here](samples/modules/basic-modules/environment) for details. |
+| image          | String                                                       | No[^1]   | Specify the docker image path. Refer to [here](samples/modules/basic-modules/environment) for details. |
+| command        | List<String>                                                 | Yes      | Specify the command to start to run the module code.         |
+| args           | List                                                         | No       | Specify the arguments used along with `command`. This list may consist place holders of Inputs and Outputs. See [CLI Argument Place Holders](#CLI Argument Place Holders) for details. |
 
 [^1]: Specify either one from `amlEnvironment` or `image`. Not allowed to specify both or none.
 
@@ -166,13 +165,13 @@ An AmlEnvironment defines the runtime environment for the module to run, it is e
 | Name                  | Type              | Required | Description                                                  |
 | --------------------- | ----------------- | -------- | ------------------------------------------------------------ |
 | condaDependenciesFile | String            | No       | The path to the conda dependencies file to use for this run. If a project contains multiple programs with different sets of dependencies, it may be convenient to manage those environments with separate files. The default is None. |
-| condaDependencies     | CondaDependencies | No       | Same as `condaDependenciesFile`, but it is specifies the conda dependencies using an inlined dictionary rather than a separated file. |
+| condaDependencies     | CondaDependencies | No       | Same as `condaDependenciesFile`, but it is specifies the conda dependencies using an inline dictionary rather than a separated file. |
 
 
 
 ### AmlEnvironmentReference
 
-It is also available to specifiy the runtime environment using a reference to an pre-registered aml environment. The environment must be registered to the workspace before registering the module. In the module spec, specify the environment name and version to refer to the environment.
+It is also available to specify the runtime environment using a reference to an pre-registered amlEnvironment. The environment must be registered to the workspace before registering the module. In the module spec, specify the environment name and version to refer to the environment.
 
 > **NOTE**:
 >
@@ -209,15 +208,14 @@ This section is used only for HDInsight modules.
 
 This section is used only for parallel modules. Refer to [here](samples/modules/parallel-modules) for details.
 
-| Name               | Type                              | Required | Description                                                  |
-| ------------------ | --------------------------------- | -------- | ------------------------------------------------------------ |
-| amlEnvironment     | [AmlEnvironment](#AmlEnvironment) | No[^1]   | The environment in where the entry script runs. Some packages must be included to the environment to enable the parallel module run. Refer to [here](samples/modules/basic-modules/environment) for details. |
-| image              | String                            | No[^1]   | Specify the docker image path. Refer to [here](samples/modules/basic-modules/environment) for details. |
-| additionalIncludes | String or List<String>            | No       | Specify the additional files or folders to the module snapshot. Refer to [here](samples/modules/basic-modules/additional-includes) for details. |
-| inputData          | String or List<String>            | Yes      | The input(s) provide the data to be splitted into mini_batches for parallel execution. Specify the name(s) of the corresponding input(s) here. |
-| outputData         | String                            | Yes      | The output for the summarized result that generated by the user script. Specify the name of the corresponding output here. |
-| entry              | String                            | Yes      | The user script to process mini_batches.                     |
-| args               | List                              | No       | The arguments passed to the user script. This list may consist place holders of Inputs and Outputs. See [CLI Argument Place Holders](#CLI Argument Place Holders) for details. No need to set information about `inputData` and `outputData` here. |
+| Name           | Type                              | Required | Description                                                  |
+| -------------- | --------------------------------- | -------- | ------------------------------------------------------------ |
+| amlEnvironment | [AmlEnvironment](#AmlEnvironment) | No[^1]   | The environment in where the entry script runs. Some packages must be included to the environment to enable the parallel module run. Refer to [here](samples/modules/basic-modules/environment) for details. |
+| image          | String                            | No[^1]   | Specify the docker image path. Refer to [here](samples/modules/basic-modules/environment) for details. |
+| inputData      | String or List<String>            | Yes      | The input(s) provide the data to be split into mini_batches for parallel execution. Specify the name(s) of the corresponding input(s) here. |
+| outputData     | String                            | Yes      | The output for the summarized result that generated by the user script. Specify the name of the corresponding output here. |
+| entry          | String                            | Yes      | The user script to process mini_batches.                     |
+| args           | List                              | No       | The arguments passed to the user script. This list may consist place holders of Inputs and Outputs. See [CLI Argument Place Holders](#CLI Argument Place Holders) for details. No need to set information about `inputData` and `outputData` here. |
 
 [^1]: Specify either one from `amlEnvironment` or `image`. Not allowed to specify both or none.
 
@@ -273,19 +271,17 @@ Placeholder is a dictionary that:
 
 ### Appendix: Diff between AzureML module spec and Kubeflow component spec
 
-| Path                                 | AzureML Module Spec                                          | Kubeflow Component Spec                                      |
-| ------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| name                                 | -                                                            | Optional, only used as human readable name                   |
-| amlModuleIdentifier                  | Required, a global unique identifier to a specific version of a module. | -                                                            |
-| type                                 | Optional (use default value when missing), specify module type to determine compute target type to run the module. | -                                                            |
-| Identifier                           | Required, defines the version of the module                  | -                                                            |
-| Description                          | Optional, human readable description                         | Optional, human readable description                         |
-| metadata/properties                  | Optional, set arbitrary key-value pairs such as tags, projectUrl, documentUrl, etc. | -                                                            |
-| metadata/annotations                 | -                                                            | Optional, translated to Kubernetes annotations when the component task is executed on Kubernetes. |
-| isDeterministic                      | Optional (use default value when missing)                    | -                                                            |
-| inputs                               | Optional, Defines the input ports and parameters             | Optional, Defines the inputs (no concept for port/params)    |
-| outputs                              | Optional,Defines the output port                             | Optional, Defines output                                     |
-| implementation/container/environment | Required if image not specified                              | -                                                            |
-| implementation/container/image       | Required if environment not specified                        | Required, the name of the docker image.                      |
-| implementation/container/command     | Required, specifies the command to start to run the module code. | Optional, specifies the command to start to run the code. If not specified, the docker image's ENTRYPOINT will be used. |
-| implementation/container/args        | Optional, arguments to the entrypoint.                       | Optional, arguments to the entrypoint.                       |
+| Path                                    | AzureML Module Spec                                          | Kubeflow Component Spec                                      |
+| --------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| name                                    | -                                                            | Optional, only used as human readable name                   |
+| amlModuleIdentifier                     | Required, a global unique identifier to a specific version of a module. | -                                                            |
+| jobType                                 | Optional (use default value when missing), specify module type to determine compute target type to run the module. | -                                                            |
+| description                             | Optional, human readable description                         | Optional, human readable description                         |
+| metadata/annotations                    | Optional, set arbitrary key-value pairs such as tags, projectUrl, documentUrl, etc. | Optional, translated to Kubernetes annotations when the component task is executed on Kubernetes. |
+| isDeterministic                         | Optional (use default value when missing)                    | -                                                            |
+| inputs                                  | Optional, Defines the input ports and parameters             | Optional, Defines the inputs (no concept for port/parameters) |
+| outputs                                 | Optional, Defines the output port                            | Optional, Defines output                                     |
+| implementation/container/amlEnvironment | Required if image not specified                              | -                                                            |
+| implementation/container/image          | Required if environment not specified                        | Required, the name of the docker image.                      |
+| implementation/container/command        | Required, specifies the command to start to run the module code. | Optional, specifies the command to start to run the code. If not specified, the docker image's ENTRYPOINT will be used. |
+| implementation/container/args           | Optional, arguments to the entrypoint.                       | Optional, arguments to the entrypoint.                       |

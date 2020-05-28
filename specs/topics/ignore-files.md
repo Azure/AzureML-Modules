@@ -26,6 +26,12 @@ By this setting, the shared `.amlignore` will be automatically applied when regi
 az ml module register --spec-file=path/to/module/spec.yaml
 ```
 
+> NOTE: use the following command to unset the default `.amlignore` file:
+>
+> ```bash
+> az configure --defaults module_amlignore_file=
+> ```
+
 ## Limitations
 
 Currently,  `.amlignore` files located in subfolders of snapshot will not take effect.
