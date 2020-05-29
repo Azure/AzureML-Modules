@@ -1,0 +1,11 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
+1.0.10: |
+  * Added regulation to DataType name for Ports (could not contain `<` and `>`, but recommend to follow PascalCase style).
+
+1.0.9: |
+  * Renamed `hdi` to `hdinsight` in `jobType`.
+  * Removed regulations to `amlModuleIdentifier/moduleName`.
+  * Removed regulations to `amlModuleIdentifier/namespace`, the namespace is not needed to be restricted to (but recommended to) follow the namespace convention.
+  * Removed regulations to `amlModuleIdentifier/moduleVersion`, the version not needed to be restricted to (but recommended to) follow semantic version specification.

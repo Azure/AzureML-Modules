@@ -1,0 +1,62 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
+amlModuleIdentifier:
+  moduleName: MPI Train Image Classification with MNIST
+  moduleVersion: 0.0.1
+  namespace: microsoft.com/azureml/samples
+jobType: mpi
+description: Train an image classification model with MNIST.
+inputs:
+  - name: Epochs
+    type: Integer
+    default: 10
+    description: Maximum number of epochs to perform while training
+    min: 1
+  - name: Batch size
+    type: Integer
+    default: 64
+    description: Number of consecutive samples to combine in a single batch
+  - name: Learning rate
+    type: Float
+    default: 0.01
+    description: Size of each step in the learning process for the model
+    min: 2.220446049250313e-16
+    max: 2.0
+  - name: Momentum
+    type: Float
+    default: 0.5
+    min: 2.220446049250313e-16
+  - name: Random seed
+    type: Integer
+    default: 42
+outputs:
+  - name: Trained model
+    type: AnyDirectory
+    description: Trained model
+implementation:
+  container:
+    amlEnvironment:
+      docker:
+        baseImage: mcr.microsoft.com/azureml/base-gpu:openmpi3.1.2-cuda10.0-cudnn7-ubuntu18.04
+      python:
+        condaDependencies:
+          name: project_environment
+          channels:
+            - defaults
+          dependencies:
+            - python=3.6.8
+            - pip:
+                - azureml-defaults
+                - torch
+                - torchvision
+                - horovod
+    command: [python, mnist/pytorch_horovod_mnist.py]
+    args: [
+      --epochs, {inputValue: Epochs},
+      --batch-size, {inputValue: Batch size},
+      --lr, {inputValue: Learning rate},
+      --momentum, {inputValue: Momentum},
+      --seed, {inputValue: Random seed},
+      --output, {outputPath: Trained model},
+    ]
