@@ -26,11 +26,6 @@ outputs:
 implementation:
   container:
     image: mcr.microsoft.com/azureml/base:intelmpi2018.3-ubuntu16.04
-    additionalIncludes:
-      - ../sample_module_0.1.1
-      - ../../walk-through.md
-      - ../../CHANGELOG.md
-      - ../../..
     command: [python, invoker.py]
     args: [
       --input, {inputPath: Input Port },

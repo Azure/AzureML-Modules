@@ -32,7 +32,7 @@ inputs:
   description: A optional parameter accepts an int value.
 outputs:
 - name: Output path
-  type: DataFrameDirectory
+  type: AnyDirectory
   description: The directory contains a dataframe.
 implementation:
   container:

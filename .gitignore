@@ -108,3 +108,7 @@ venv.bak/
 
 # MacOs
 .DS_Store
+
+# AzureML
+.amlignore
+.azureml/

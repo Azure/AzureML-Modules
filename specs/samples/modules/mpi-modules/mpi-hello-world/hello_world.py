@@ -2,11 +2,7 @@
 # Licensed under the MIT License.
 
 import argparse
-from azureml.studio.core.logger import module_logger as logger
-from azureml.studio.core.io.data_frame_directory import load_data_frame_from_directory, save_data_frame_to_directory
-
-PACKAGE_NAME = 'azureml-designer-tutorial-modules'
-VERSION = '0.0.1'
+import logging
 
 from mpi4py import MPI
 
@@ -40,7 +36,7 @@ if __name__ == '__main__':
 
     args, _ = parser.parse_known_args()
 
-    logger.info(f"Hello world MPI from {PACKAGE_NAME} {VERSION}")
+    logger = logging.getLogger('module')
 
     comm = MPI.COMM_WORLD
     size = comm.Get_size()
@@ -65,15 +61,10 @@ if __name__ == '__main__':
         logger.debug(f"I'm rank 0/{size}, load and dump.")
 
         logger.debug(f"Input path: {args.input_path}")
-        data_frame_directory = load_data_frame_from_directory(args.input_path)
-
-        logger.debug(f"Shape of loaded DataFrame: {data_frame_directory.data.shape}")
 
         logger.debug(f"Output path: {args.output_path}")
-        save_data_frame_to_directory(args.output_path, data_frame_directory.data)
 
         for i in range(1, size):
-            data = data_frame_directory.data.shape
+            data = (1, size)
             logger.debug(f"Send shape to rank {i}")
             comm.send(data, dest=i, tag=i)
-

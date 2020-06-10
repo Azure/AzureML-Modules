@@ -1,6 +1,9 @@
 # Copyright (c) Microsoft Corporation.
 # Licensed under the MIT License.
 
+1.0.11: |
+  * Added `implementation/os` to support windows platforms.
+
 1.0.10: |
   * Added regulation to DataType name for Ports (could not contain `<` and `>`, but recommend to follow PascalCase style).
 

@@ -127,6 +127,7 @@ This block defines how and where to run the module code.
 | container | [Container](#Container) | No[^1]   | Defines the required information for running. (For basic and mpi modules)               |
 | hdinsight | [HDInsight](#HDInsight) | No[^1]   | Defines the required information for running. (For HDInsight modules) |
 | parallel  | [Parallel](#Parallel)   | No[^1]   | Defines the required information for running. (For parallel modules) |
+| os        | String                  | No       | Defines the operating system the module running on. Could be `windows` or `linux`. Defaults to `linux` if not specified. |
 
 [^1]: Specify either one according to `jobType`. Could not specify multiple or none.
 

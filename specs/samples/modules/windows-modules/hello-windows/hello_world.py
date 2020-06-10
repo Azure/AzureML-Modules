@@ -3,9 +3,22 @@
 
 import argparse
 import logging
+import shutil
+import subprocess
+import os
+from pathlib import Path, PureWindowsPath
+
+
+def pip_install(package):
+    subprocess.run(['python', '-m', 'pip', 'install', package, '--user', '--upgrade'], check=True)
 
 
 if __name__ == '__main__':
+
+    """Install dependencies of module. Take 'fire' for example."""
+    pip_install('fire')
+    import fire
+
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
@@ -51,3 +64,17 @@ if __name__ == '__main__':
     logger.debug(f"    {bool_param}")
     logger.debug(f"    {enum_param}")
     logger.debug(f"Output path: {args.output_path}")
+
+    """Clean output folder if exists"""
+    output_path = Path(args.output_path).resolve()
+    if output_path.is_dir():
+        shutil.rmtree(output_path)
+    elif output_path.is_file() or output_path.is_symlink():
+        os.unlink(str(output_path))
+
+    """Do something with command line"""
+    # Convert output path to windows style
+    win_output_path = str(PureWindowsPath(output_path))
+
+    cmd_file = 'run.bat'
+    subprocess.run([cmd_file, args.input_path, win_output_path, str_param], check=True)

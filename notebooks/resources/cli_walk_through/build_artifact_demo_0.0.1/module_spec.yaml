@@ -3,9 +3,9 @@
 
 amlModuleIdentifier:
   namespace: microsoft.com/office
-  moduleName: Sample Module
-  moduleVersion: 0.1.3
-description: Basic module for demo.
+  moduleName: Build Artifact Demo
+  moduleVersion: 0.0.1
+description: A sample module for Azure DevOps Build Artifact.
 metadata:
   annotations:
     tags: [nlp, bert]
@@ -26,10 +26,6 @@ outputs:
 implementation:
   container:
     image: mcr.microsoft.com/azureml/base:intelmpi2018.3-ubuntu16.04
-    additionalIncludes:
-      - ../sample_module_0.1.1
-      - ../../walk-through.md
-      - ../../CHANGELOG.md
     command: [python, invoker.py]
     args: [
       --input, {inputPath: Input Port },

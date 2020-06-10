@@ -2,21 +2,19 @@
 # Licensed under the MIT License.
 
 amlModuleIdentifier:
-  moduleName: Hello World with GPU Image
-  moduleVersion: 0.0.1
+  moduleName: Hello Windows
+  moduleVersion: 0.0.10
   namespace: microsoft.com/azureml/samples
 metadata:
   annotations:
-    tags:
-      - DataTransformation
-description: A hello world tutorial to create a module for ml.azure.com.
+    tags: [AzureML, Sample]
+description: A module with inputs and outputs.
 inputs:
 - name: Input path
   type: AnyDirectory
   description: The directory contains dataframe.
 - name: String parameter
   type: String
-  optional: true
   description: A parameter accepts a string value.
 - name: Int parameter
   type: Integer
@@ -27,25 +25,30 @@ inputs:
 - name: Boolean parameter
   type: Boolean
   description: A parameter accepts a boolean value.
-- name: Enum Parameter
+- name: Enum parameter
   type: Enum
   default: option1
   options:
     - option1
     - option2
     - option3
+  description: A parameter accepts enumerated values.
 outputs:
 - name: Output path
   type: AnyDirectory
   description: The directory contains a dataframe.
 implementation:
+  os: windows
   container:
-    # This image must contain packages azureml-sdk and azureml-dataprep to make sure it works properly in AzureML
-    image: zzn2/azureml_sdk_gpu_pytorch
-    command: [python, hello_world_docker_gpu.py]
+    amlEnvironment:
+      python:
+        condaDependencies:
+          dependencies:
+            - python=3.6.8
+    command: [python, hello_world.py]
     args: [
       --input-path, {inputPath: Input path},
-      [--string-parameter, {inputValue: String parameter}],
+      --string-parameter, {inputValue: String parameter},
       --int-parameter, {inputValue: Int parameter},
       --boolean-parameter, {inputValue: Boolean parameter},
       --output-path, {outputPath: Output path},
