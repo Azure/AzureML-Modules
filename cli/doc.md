@@ -2,7 +2,7 @@
 
 This document describes the module cli usage details. For a quick walk through, refer to [this document](walk-through.md).
 
-[TOC]
+[[_TOC_]]
 
 
 
