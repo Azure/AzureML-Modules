@@ -1,0 +1,63 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
+amlModuleIdentifier:
+  moduleName: Hello World MPI Job
+  moduleVersion: 0.0.1
+  namespace: microsoft.com/azureml/samples
+jobType: mpi
+metadata:
+  annotations:
+    tags:
+      - DataTransformation
+description: A hello world tutorial to create a MPI module for ml.azure.com.
+inputs:
+- name: Input path
+  type: AnyDirectory
+  description: The directory contains dataframe.
+- name: String parameter
+  type: String
+  optional: true
+  description: A parameter accepts a string value.
+- name: Int parameter
+  type: Integer
+  min: 1
+  max: 5
+  default: 3
+  description: A parameter accepts an int value.
+- name: Boolean parameter
+  type: Boolean
+  description: A parameter accepts a boolean value.
+- name: Enum Parameter
+  type: Enum
+  default: option2
+  options:
+    - option1
+    - option2
+    - option3
+outputs:
+- name: Output path
+  type: AnyDirectory
+  description: The directory contains a dataframe.
+implementation:
+  container:
+    amlEnvironment:
+      python:
+        condaDependencies:
+          name: project_environment
+          channels:
+            - defaults
+          dependencies:
+            - python=3.6.8
+            - pip:
+              - azureml-defaults
+              - azureml-designer-core==0.0.31
+              - mpi4py
+    command: [python, hello_world.py]
+    args: [
+      --input-path, {inputPath: Input path},
+      [--string-parameter, {inputValue: String parameter}],
+      --int-parameter, {inputValue: Int parameter},
+      --boolean-parameter, {inputValue: Boolean parameter},
+      --output-path, {outputPath: Output path},
+    ]

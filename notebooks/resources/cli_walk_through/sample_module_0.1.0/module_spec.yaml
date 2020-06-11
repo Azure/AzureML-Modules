@@ -1,0 +1,35 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
+amlModuleIdentifier:
+  namespace: microsoft.com/office
+  moduleName: Sample Module
+  moduleVersion: 0.1.0
+description: Basic module for demo.
+metadata:
+  annotations:
+    tags: [nlp, bert]
+    contact: AzureML Studio Team <stcamlstudiosg@microsoft.com>
+    helpDocument: http://readthedocs.com/proj
+inputs:
+  - name: Input Port
+    type: AnyDirectory
+  - name: Parameter 1
+    type: String
+    default: hello
+  - name: Parameter 2
+    type: Integer
+    default: 1
+outputs:
+  - name: Output Port
+    type: AnyDirectory
+implementation:
+  container:
+    image: mcr.microsoft.com/azureml/base:intelmpi2018.3-ubuntu16.04
+    command: [python, invoker.py]
+    args: [
+      --input, {inputPath: Input Port },
+      --parameter-1, { inputValue: Parameter 1 },
+      --parameter-2, { inputValue: Parameter 2 },
+      --output, { outputPath: Output Port },
+    ]

@@ -1,0 +1,51 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
+amlModuleIdentifier:
+  moduleName: Parallel Score Image Classification Model
+  moduleVersion: 0.0.1
+  namespace: microsoft.com/azureml/samples
+description: Score images with trained image classification model.
+jobType: parallel
+inputs:
+  - name: Trained model
+    type: AnyDirectory
+    description: Trained image classification model
+  - name: Images to score
+    type: AnyDirectory
+    description: Images to score
+outputs:
+  - name: Scored dataset
+    type: AnyDirectory
+    description: Scored dataframes stored in parquet files
+implementation:
+  parallel:
+    additionalIncludes: ../../mpi-modules/mpi-train-mnist/mnist/
+    amlEnvironment:
+      docker:
+        baseImage: mcr.microsoft.com/azureml/base-gpu:openmpi3.1.2-cuda10.0-cudnn7-ubuntu18.04
+      python:
+        condaDependencies:
+          name: project_environment
+          channels:
+            - defaults
+          dependencies:
+            - psutil
+            - python=3.6.8
+            - pip:
+                - torch
+                - torchvision
+                # The following dependencies are used for parallel run driver.
+                - azure-storage-queue~=2.1
+                - azure-storage-common~=2.1
+                - azureml-core~=1.0
+                - azureml-telemetry~=1.0
+                - filelock~=3.0
+                - azureml-dataprep[fuse,pandas]~=1.1
+    inputData: Images to score
+    outputData: Scored dataset
+    entry: mnist/score_parallel.py
+    args: [
+      --model-input, {inputPath: Trained model},
+      --data-output, {outputPath: Scored dataset},
+    ]

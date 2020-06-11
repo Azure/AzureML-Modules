@@ -1,0 +1,21 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
+amlModuleIdentifier:
+  moduleName: First Module
+  moduleVersion: 0.0.1
+  namespace: microsoft.com/azureml/samples
+metadata:
+  annotations:
+    tags: [AzureML, Sample]
+description: First module created for AzureML.
+implementation:
+  container:
+    amlEnvironment:
+      python:
+        condaDependencies:
+          dependencies:
+            - python=3.6.8
+            - pip:
+              - azureml-defaults
+    command: [python, hello_world.py]

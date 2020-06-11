@@ -1,0 +1,55 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
+amlModuleIdentifier:
+  moduleName: Hello Windows
+  moduleVersion: 0.0.10
+  namespace: microsoft.com/azureml/samples
+metadata:
+  annotations:
+    tags: [AzureML, Sample]
+description: A module with inputs and outputs.
+inputs:
+- name: Input path
+  type: AnyDirectory
+  description: The directory contains dataframe.
+- name: String parameter
+  type: String
+  description: A parameter accepts a string value.
+- name: Int parameter
+  type: Integer
+  min: 1
+  max: 5
+  default: 3
+  description: A parameter accepts an int value.
+- name: Boolean parameter
+  type: Boolean
+  description: A parameter accepts a boolean value.
+- name: Enum parameter
+  type: Enum
+  default: option1
+  options:
+    - option1
+    - option2
+    - option3
+  description: A parameter accepts enumerated values.
+outputs:
+- name: Output path
+  type: AnyDirectory
+  description: The directory contains a dataframe.
+implementation:
+  os: windows
+  container:
+    amlEnvironment:
+      python:
+        condaDependencies:
+          dependencies:
+            - python=3.6.8
+    command: [python, hello_world.py]
+    args: [
+      --input-path, {inputPath: Input path},
+      --string-parameter, {inputValue: String parameter},
+      --int-parameter, {inputValue: Int parameter},
+      --boolean-parameter, {inputValue: Boolean parameter},
+      --output-path, {outputPath: Output path},
+    ]
